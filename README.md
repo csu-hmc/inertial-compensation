@@ -64,10 +64,10 @@ The data processing pipeline follows this general process:
    between the measured accelerations (input) and force signals (output).  
    (`compensation.m`)
 7. Multiplies the recorded accelerations from another trial with the calibration
-   coefficients.  Subtracts the result from the recorded force signals(`compensation.m`)
+   coefficients.  Subtracts the result from the recorded force signals (`compensation.m`)
 8. Performs a coordinate transformation on the compensated forces ('transformation.m') 
-   using the Soderquist method (`soder.m`). The soder method is sped through multidimensional
-   matrix multiplication (`mmat.m`)
+   using the Soderquist method (`soder.m`). The speed soder method is sincreased through 
+   multidimensional matrix multiplication (`mmat.m`)
 9. Plots the uncompensated vs. compensated force signals (Fx,Fy,Fz,Mx,My,Mz) for
     force plate 1 (`plot_compensation_graph.m`)
 10. Performs the inverse dynamic analysis on recorded walking data.  Adds uncompensated
