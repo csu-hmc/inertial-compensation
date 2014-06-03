@@ -1,0 +1,1 @@
+Saved graphs will go to this directory when running the inertia_compensation_test.m 
