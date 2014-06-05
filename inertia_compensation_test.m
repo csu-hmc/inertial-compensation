@@ -17,6 +17,13 @@
 %      is greater than one), (FP1 only)
 %   9) Displays data table of the RMS before and after compensation and
 %      the percent difference (FP1 only)
+%   10)Performs validation tests using 10 trials of 5 different movement
+%      types.  Using a calibration trial from each movement type, the 
+%      inertial artifacts from all other trials are compensated with the
+%      coefficients determined from the calibration trial.  A table of the 
+%      mean and standard deviation of RMS values are generated using 5 
+%      different calibration matrices are generated and saved as an excel
+%      sheet
 %======================================================================
 
 clc
@@ -101,4 +108,36 @@ display('Starting Computation...')
             fpat='Results';
             saveas(gcf,[fpat,filesep,figname3],'epsc')
     end
+%========================================================================
+%Part 2: Validation Tests
+%========================================================================
+    display('Starting Validation Tests...')
+    %Making Calibration Files Available to Script
+        path_to_this_file = mfilename('fullpath');
+        [directory_of_this_file, ~, ~] = fileparts(path_to_this_file);
+        addpath([directory_of_this_file filesep 'Data' filesep 'Validation-Tests' filesep 'Calibrations'])
+    %Starting Validation Test Calculation
+        movement_types={'NoMovement','Random','Sinusoidal','Pitch','Translation'};
+        for i=1:length(movement_types)
+            filename=[movement_types{i} num2str(1) '.txt'];
+            fprintf('%s Calibration Trial...\n',movement_types{i})
+            [f_comp,m_comp,f_uncomp,m_uncomp]=validation_test(filename);
+            %Saving RMS Data Table
+                for j=1:length(movement_types)
+                    All_forces(i,j)=cellstr(sprintf('%2.2f +/-  %2.2f',f_comp(j,:)'));
+                    All_moments(i,j)=cellstr(sprintf('%2.2f +/- %2.2f',m_comp(j,:)'));
+                    %Save Uncompensated Forces at Last Iteration
+                        if i==length(movement_types)
+                            forces_uncomp(:,j)=cellstr(sprintf('%2.2f +/- %2.2f',f_uncomp(j,:)'));
+                            moments_uncomp(:,j)=cellstr(sprintf('%2.2f +/- %2.2f',m_uncomp(j,:)'));
+                        end
+                end
+        end
+    %Organize Final Table
+        All_forces=[forces_uncomp; All_forces];
+        All_moments=[moments_uncomp; All_moments];
+    %Saving Table
+        file=fullfile([directory_of_this_file filesep 'Results'],'Validation_Test_Results.xlsx');
+        xlswrite(file,All_forces,1,'A1')
+        xlswrite(file,All_moments,1,'A8')
 display('Computation Completed.')
