@@ -79,4 +79,6 @@ The data processing pipeline follows this general process:
 12. Shows a comparison of RMS with respect to the filter frequency for
     compensated and uncompensated force and moment signals (Fxyz, Mxyz). If the range of
     the cutoff frequencies is 1, then the graph will not generate. (`plot_frequency_graphs.m`)
-13. Saves the graphs to the `Results` data directory.
+13. Saves the graphs to the `Results` directory.
+14. Performs validation test calculations (`validation_test.m`), using 10 trials of 5 different treadmill movements. Coefficients are determined from one trial from each of the 5 movements.  These coefficients then reduce inertial errors in the remaining trials of the same movement and the other movements.  
+15. Calculates the mean and standard deviation of the compensated RMS values for all of the validation tests and saves into an Excel file in the `Results` directory.
