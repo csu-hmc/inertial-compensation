@@ -8,7 +8,7 @@ Task list for Rutwick's masters research project.
 see which one gives the lowest RMS residual
 6. Determine resolution and noise of the accelerometer.  We need about 0.04 m/s2 accuracy to have a final error of 6 N in the force.
 7. Collect data with the test protocol. Do the seven tests on one day, process the data, if it looks good, do it again on another day
-and see if results are the same.  If not, change protocol or methods.
+   and see if results are the same.  If not, change protocol or methods.
 
 belts off, random pitch-sway (this is used to calibrate the model, determine the A matrix)
 belts off, pitch-sway off
