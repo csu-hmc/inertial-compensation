@@ -1,0 +1,24 @@
+Task list for Rutwick's masters research project.
+
+1. Report on the design of force-torque sensor
+2. Learn D-Flow
+3. Learn how to run Sandy's inertial compensation code and determine the amount of compensation.
+4. Learn how to collect data from the treadmill and accelerometers with D-Flow
+5. Determine the time lag between accelerometers and force plate data.  Try a sequence of lag values and
+see which one gives the lowest RMS residual
+6. Determine resolution and noise of the accelerometer.  We need about 0.04 m/s2 accuracy to have a final error of 6 N in the force.
+7. Collect data with the test protocol. Do the seven tests on one day, process the data, if it looks good, do it again on another day
+and see if results are the same.  If not, change protocol or methods.
+
+belts off, random pitch-sway (this is used to calibrate the model, determine the A matrix)
+belts off, pitch-sway off
+belts on, pitch-sway off
+belts on, random pitch-sway
+belts off, pitch-sway off, jumping on the floor to create vibration
+belts on, pitch-sway off, walking on belt 1 while collecting data from belt 2
+belts on, random pitch-sway, walking on belt 1 while collecting data from belt 2
+
+8 Results to report from each test condition.  RMS of the 6 forceplate signals before and after compensation.  Effect of low-
+pass filtering on RMS.  RMS at 6 Hz, in a Table comparing day 1 and day 2.  Do everything only for force plate 2.
+
+9. Write report.
