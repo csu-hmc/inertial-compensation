@@ -44,13 +44,15 @@ function [compensated_forces]=compensation(force_cal,accel_cal,...
     %-------------------------
     %Acceleration (D) Matrix
     %-------------------------
-        a13=ones(length(force_cal),1);
+        frames_cal = length(force_cal);
+        a13=ones(frames_cal,1);
         accel_cal=[accel_cal a13];
-        D=zeros(6*length(force_cal),78);
-            for i=1:length(force_cal)
+        accel_no_cal = size(accel_cal,2);
+        D=zeros(6*frames_cal,accel_no_cal*6);
+            for i=1:frames_cal
                 for j=1:6
                     row=6*(i-1)+j;
-                    col=13*(j-1)+(1:13);
+                    col=accel_no_cal*(j-1)+(1:accel_no_cal);
                     D(row,col)=accel_cal(i,:);
                 end
             end
@@ -60,8 +62,8 @@ function [compensated_forces]=compensation(force_cal,accel_cal,...
         FP1_cal=force_cal(:,1:6);
         FP2_cal=force_cal(:,7:12);
         %Reshaping for Least Squares
-            B1=reshape(FP1_cal',6*length(force_cal),1);
-            B2=reshape(FP2_cal',6*length(force_cal),1);
+            B1=reshape(FP1_cal',6*frames_cal,1);
+            B2=reshape(FP2_cal',6*frames_cal,1);
     %---------------------------------------
     %Calculate Coefficients (Least Squares)
     %---------------------------------------
@@ -73,13 +75,15 @@ function [compensated_forces]=compensation(force_cal,accel_cal,...
     %---------------------------
     %Acceleration (D) Matrix
     %---------------------------
-        a13=ones(length(force_cor),1);
+        frames_cor = length(force_cor);
+        a13=ones(frames_cor,1);
         accel_cor=[accel_cor a13];
-        D=zeros(6*length(force_cor),78);
-            for i=1:length(force_cor)
+        accel_no_cor = size(accel_cor,2);
+        D=zeros(6*frames_cor,accel_no_cor*6);
+            for i=1:frames_cor
                 for j=1:6
                     row=6*(i-1)+j;
-                    col=13*(j-1)+(1:13);
+                    col=accel_no_cor*(j-1)+(1:accel_no_cor);
                     D(row,col)=accel_cor(i,:);
                 end
             end
@@ -89,8 +93,8 @@ function [compensated_forces]=compensation(force_cal,accel_cal,...
         FP1_cor=force_cor(:,1:6);
         FP2_cor=force_cor(:,7:12);
             %Reshaping for Least Squares
-            B1=reshape(FP1_cor',6*length(force_cor),1);
-            B2=reshape(FP2_cor',6*length(force_cor),1);
+            B1=reshape(FP1_cor',6*frames_cor,1);
+            B2=reshape(FP2_cor',6*frames_cor,1);
     %-----------------------------------------------------------------------
     %Correcting Forces using Calibration Matrices (C_FP1, C_FP2)
     %-----------------------------------------------------------------------

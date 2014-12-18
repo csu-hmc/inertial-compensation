@@ -40,32 +40,27 @@ function statistics_table=calculate_statistics(frequency,uncompensated,compensat
 %-------------------------------------
     RMS_uncompensated=zeros(6,1);
     RMS_compensated=zeros(6,1);
+    per_diff=zeros(6,1);
 %-------------------------------------
 %Statistical Calculation
 %-------------------------------------
     for i=1:6
         RMS_uncompensated(i,:)=sqrt(mean(uncompensated(:,i).^2));
         RMS_compensated(i,:)=sqrt(mean(compensated(:,i).^2));
+        per_diff(i,:)=((RMS_uncompensated(i,:)-RMS_compensated(i,:))/RMS_uncompensated(i,:))*100;
+        statistics_table=[RMS_uncompensated RMS_compensated per_diff];
     end
-    %Calculating Norm (Fxyz,Mxyz) and Creating Results Table
-        F_uncomp=norm(RMS_uncompensated(1:3,:));
-        M_uncomp=norm(RMS_uncompensated(4:6,:));
-        F_comp=norm(RMS_compensated(1:3,:));
-        M_comp=norm(RMS_compensated(4:6,:));   
-        statistics_table=[frequency F_uncomp M_uncomp F_comp M_comp];
 %--------------------------------------------------
 %Display Results if Frequency is Desired Frequency
 %--------------------------------------------------
     if frequency == desired_frequency
-        F_diff=((F_uncomp-F_comp)/F_uncomp)*100;
-        M_diff=((M_uncomp-M_comp)/M_uncomp)*100;
-        results_table=[F_uncomp F_comp F_diff M_uncomp M_comp M_diff];
         %Generate Table
-            fprintf('________________________________________________________\n')
-            fprintf('        Fxyz                       Mxyz                 \n')
-            fprintf('Before  After   %%Diff     Before   After    %%Diff      \n')
-            fprintf('________________________________________________________\n')
-            fprintf(' %2.2f  %2.2f    %2.2f     %2.2f   %2.2f     %2.2f       \n',results_table')
-            fprintf('________________________________________________________\n\n')
+            fprintf('_____________________________________________________________\n')
+            fprintf('               Fx     Fy       Fz      Mx      My       Mz                  \n')
+            fprintf('_____________________________________________________________\n')
+            fprintf('Before:      %2.2f  %2.2f    %2.2f     %2.2f   %2.2f    %2.2f       \n',statistics_table(:,1)')
+            fprintf('After:       %2.2f  %2.2f    %2.2f      %2.2f     %2.2f    %2.2f       \n',statistics_table(:,2)')
+            fprintf('Per. Diff:   %2.2f  %2.2f    %2.2f    %2.2f   %2.2f    %2.2f       \n',statistics_table(:,3)')
+            fprintf('_____________________________________________________________\n\n')
     end
 end
