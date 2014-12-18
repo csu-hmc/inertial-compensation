@@ -19,7 +19,7 @@ see which one gives the lowest RMS residual
     Trial 7:  belts off, pitch-sway off, jumping on the floor to create vibration
     Trial 8:  belts on, pitch-sway off, walking on belt 1 while collecting data from belt 2
     Trial 9:  belts on, random pitch-sway movement 1, walking on belt 1 while collecting data from belt 2 
-    Trial 10: belts on, random pitch-sway movement 1, walking on belt 1 while collecting data from belt 2 
+    Trial 10: belts on, random pitch-sway movement 2, walking on belt 1 while collecting data from belt 2 
 
 8 Results to report from each test condition.  RMS of the 6 forceplate signals before and after compensation.  Effect of low-
 pass filtering on RMS.  RMS at 6 Hz, in a Table comparing day 1 and day 2.  Do everything only for force plate 2.
